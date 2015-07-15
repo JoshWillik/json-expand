@@ -1,0 +1,26 @@
+{
+  "name": "json-expand",
+  "version": "1.0.0",
+  "description": "Expand self referencing json documents",
+  "main": "json-expand.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoshWillik/json-expand.git"
+  },
+  "keywords": [
+    "json",
+    "expand"
+  ],
+  "author": "Josh Vanderwillik <joshwillik@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoshWillik/json-expand/issues"
+  },
+  "homepage": "https://github.com/JoshWillik/json-expand#readme"
+}
