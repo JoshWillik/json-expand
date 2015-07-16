@@ -62,7 +62,9 @@ expand( obj )
 
 ## Rules
 
-Any **expression** wrapped in `{{ }}` will be expanded to the correct value or undefined if none exists.The expression to expand may come before the thing it will expand to.
+Any **expression** wrapped in `{{ }}` will be expanded to the correct value or an empty string if none exists.
+The expression to expand may come before the thing it will expand to.
+
 ```json
 {
     "name": "John, son of {{parent}}",
@@ -79,21 +81,22 @@ An expression may reference sub-properties of the document it resides in. All ex
 
 ```json
 {
-    "description": "John, drives with {{vehicle.wheels}} wheels",
+    "description": "John drives with {{vehicle.wheels}} wheels",
     "vehicle": {
         "wheels":4
     }
 }
 // becomes
 {
-    "description": "John, drives with 4 wheels",
+    "description": "John drives with 4 wheels",
     "vehicle": {
         "wheels":4
     }
 }
 ```
 
-Using `||` will make json-expand attempt to expand each option, in order, until one works. Once one value is valid, the rest of the options are ignored.
+Using `||` operator will make json-expand attempt to expand each option, in order, until one works. Once one value is valid, the rest of the options are ignored.
+
 ```json
 {
     "description": "I enjoy {{ favoriteFood || foodIKindaLike }}",
@@ -118,7 +121,9 @@ Using `||` will make json-expand attempt to expand each option, in order, until 
 }
 ```
 
-Environment variables may be substituted by adding a `$` before an expression. Using `||` works just fine with these.
+Environment variables may be substituted by adding a `$` before an expression.
+Using `||` works just fine with these.
+
 ```json
 {
     "remoteHost": "{{ $REMOTE_HOST || defaultHost }}",
