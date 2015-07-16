@@ -63,17 +63,27 @@ function substituteIfPossible( string, pool ){
 }
 
 function findBestValue( expression, pool ){
-  var value
-  var options = expression.split( '||' ).map( function( item ){
-    return item.trim()
-  })
-  while( options.length && value == undefined ){
+  var value = ''
+  var options = expression.split( '||' )
+  while( options.length && value === '' ){
     var option = options.shift()
-    if( option[0] === '$' ) {
-      value = findValue( option.slice( 1 ), process.env )
-    } else {
-      value = findValue( option, pool )
-    }
+
+    value = option.split( '+' ).map( function( segment ){
+      return segment.trim()
+    }).map( function( segment ){
+      if( !segment ){
+        return ''
+      }
+
+      if( segment[0] === '$' ) {
+        return findValue( segment.slice( 1 ), process.env )
+      } else if( segment[0] === "'" || segment[0] === '"' ){
+        var a = segment.replace( /[\'\"]/g, '' )
+        return a
+      } else {
+        return findValue( segment, pool )
+      }
+    }).join( '' )
   }
   return value
 }

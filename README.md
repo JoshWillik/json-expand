@@ -135,3 +135,20 @@ Environment variables may be substituted by adding a `$` before an expression. U
     "defaultHost": "production.project.com"
 }
 ```
+
+Expressions can be concatinated together if desired. The `+` has higher precedence than `||`, so
+`{{ foo || bar + ' test'}}` will result in either (foo) or (bar + ' test'), never (foo + ' test').
+
+Using parenthesis to override the order of operations will not work in this version.
+
+```json
+{
+    "baseDomain": "my-project.com",
+    "apiDomain": "{{ doesNotExist || 'api.' + baseDomain }}"
+}
+// becomes
+{
+    "baseDomain": "my-project.com",
+    "apiDomain": "api.my-project.com"
+}
+```
