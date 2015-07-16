@@ -31,6 +31,7 @@ function expandObject( obj, scope ){
   if( !scope ){
     scope = obj
   }
+
   var shouldContinue = true
   while( shouldContinue ){
     shouldContinue = false
@@ -55,10 +56,26 @@ function expandObject( obj, scope ){
 function substituteIfPossible( string, pool ){
   while( SUBSTITUTE_REGEX.test( string ) ){
     string = string.replace( SUBSTITUTE_REGEX, function( fullMatch, capture ){
-      return findValue( capture.trim(), pool )
+      return findBestValue( capture, pool )
     })
   }
   return string
+}
+
+function findBestValue( expression, pool ){
+  var value
+  var options = expression.split( '||' ).map( function( item ){
+    return item.trim()
+  })
+  while( options.length && value == undefined ){
+    var option = options.shift()
+    if( option[0] === '$' ) {
+      value = findValue( option.slice( 1 ), process.env )
+    } else {
+      value = findValue( option, pool )
+    }
+  }
+  return value
 }
 
 function findValue( keyString, pool ){

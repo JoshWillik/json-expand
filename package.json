@@ -1,6 +1,6 @@
 {
   "name": "json-expand",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Expand self referencing json documents",
   "main": "json-expand.js",
   "directories": {
