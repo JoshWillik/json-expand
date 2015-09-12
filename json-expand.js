@@ -2,6 +2,29 @@
 
 var SUBSTITUTE_REGEX = /{{(.*?)}}/g
 
+function merge() {
+  var args = Array.prototype.slice.call( arguments )
+  var obj1 = args.shift()
+  var obj2 = args.shift()
+  for (var p in obj2) {
+    try {
+      if ( obj2[p].constructor==Object ) {
+        obj1[p] = MergeRecursive(obj1[p], obj2[p]);
+      } else {
+        obj1[p] = obj2[p];
+      }
+    } catch ( e ) {
+      obj1[p] = obj2[p]
+    }
+  }
+
+  if( args.length === 0 ){
+    return obj1
+  } else {
+    return merge.apply( null, [obj1].concat( args ) )
+  }
+}
+
 function main(){
   var inputBuffer = ''
   process.stdin.on( 'data', function( chunk ){
@@ -15,7 +38,7 @@ function main(){
   })
 
   if( process.stdin.isTTY ){
-    process.exit(-1)
+    process.exit(1)
   }
 }
 
@@ -25,6 +48,11 @@ function parseInput( data ){
 
 function outputData( data ){
   return console.log( JSON.stringify( data ) )
+}
+
+function topLevelExpand( obj, context ){
+  var scope = merge( {}, obj, context )
+  return expandObject( obj, scope )
 }
 
 function expandObject( obj, scope ){
@@ -103,5 +131,5 @@ function findValue( keyString, pool ){
 if( require.main === module ){
   main()
 } else {
-  module.exports = expandObject
+  module.exports = topLevelExpand
 }

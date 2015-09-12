@@ -1,5 +1,9 @@
 var assert = require( 'assert' )
 var expand = require( '../' )
+var clone = function( obj ){
+  //cheap hack, I know
+  return JSON.parse( JSON.stringify( obj ) )
+}
 
 describe( 'JSON Expand', function(){
   it( 'should expand keys', function(){
@@ -121,8 +125,26 @@ describe( 'JSON Expand', function(){
       "bar": "fum"
     }
 
-    assert.deepEqual( expand( Object.create(before) ), expectedWithoutEnv )
+    assert.deepEqual( expand( clone(before) ), expectedWithoutEnv )
     process.env.OVERRIDE = 'HAMMER TIME'
-    assert.deepEqual( expand( Object.create(before) ), expectedWithEnv )
+    assert.deepEqual( expand( clone(before) ), expectedWithEnv )
+  })
+
+  it( 'should allow context to be passed in as a second argument', function(){
+    var before = {
+      "tld": "network",
+      "host":"gmail",
+      "email": "{{adminName}}@{{host}}.{{tld}}"
+    }
+    var expected = {
+      "tld": "network",
+      "host": "gmail",
+      "email": "johnSmith@elitecontracting.network"
+    }
+    var context = {
+      adminName: 'johnSmith',
+      host: 'elitecontracting'
+    }
+    assert.deepEqual( expand( clone(before), context), expected )
   })
 })
