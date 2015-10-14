@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/JoshWillik/json-expand/issues"
   },
-  "homepage": "https://github.com/JoshWillik/json-expand#readme"
+  "homepage": "https://github.com/JoshWillik/json-expand#readme",
+  "devDependencies": {
+    "mocha": "^2.3.3"
+  }
 }
