@@ -3,6 +3,9 @@
   "version": "1.3.0",
   "description": "Expand self referencing json documents",
   "main": "json-expand.js",
+  "bin": {
+    "json-expand": "json-expand.js"
+  },
   "directories": {
     "test": "test"
   },
