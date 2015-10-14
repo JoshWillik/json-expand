@@ -3,6 +3,9 @@
   "version": "1.3.0",
   "description": "Expand self referencing json documents",
   "main": "json-expand.js",
+  "bin": {
+    "json-expand": "json-expand.js"
+  },
   "directories": {
     "test": "test"
   },
@@ -22,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/JoshWillik/json-expand/issues"
   },
-  "homepage": "https://github.com/JoshWillik/json-expand#readme"
+  "homepage": "https://github.com/JoshWillik/json-expand#readme",
+  "devDependencies": {
+    "mocha": "^2.3.3"
+  }
 }

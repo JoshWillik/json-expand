@@ -12,7 +12,7 @@ $ mv json-expand/json-expand.js ~/my-scripts/json-expand
 ```
 NPM module
 ```shell
-$ npm install json-expand
+$ npm install -g json-expand
 ```
 
 ## CLI Usage
